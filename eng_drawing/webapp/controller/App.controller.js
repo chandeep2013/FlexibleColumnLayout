@@ -20,7 +20,7 @@ sap.ui.define([
                 this.oRouter.attachBeforeRouteMatched(this.onBeforeRouteMatched, this);
 
                 var data = oStorage.get("appSessionData");
-                //console.log(data[0].TermsAndConditions);
+                //console.log(data[0].TermsAndConditions); 
                 if (data[0].TermsAndConditions == true) {
                     var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                     oRouter.navTo("Master", {
