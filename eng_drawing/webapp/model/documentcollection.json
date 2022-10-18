@@ -1,0 +1,115 @@
+{
+    "documentCollection": [
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1001",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R2",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1002",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R3",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1003",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "2",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1004",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "2",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1005",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        },
+        {
+            "DocumentName": "HT-1000",
+            "DocumentTitle": "Laptops",
+            "RevisionNumber": "R1",
+            "DocVersion": "1",
+            "CategoryName": "DETAIL, EDRN, EO"
+        }
+    ],
+    "attachmentCollection": [
+        {
+            "attachment": "attachment1",
+            "href": "attachment1.txt",
+            "CategoryName": "Detail"
+        },
+        {
+            "attachment": "attachment2",
+            "href": "attachment2.txt",
+            "CategoryName": "Detail"
+        },
+        {
+            "attachment": "attachment3",
+            "href": "attachment3.txt",
+            "CategoryName": "Detail"
+        },
+        {
+            "attachment": "attachment4",
+            "href": "attachment4.txt",
+            "CategoryName": "Detail"
+        },
+        {
+            "attachment": "attachment5",
+            "href": "attachment5.txt",
+            "CategoryName": "Detail"
+        }
+    ]
+}

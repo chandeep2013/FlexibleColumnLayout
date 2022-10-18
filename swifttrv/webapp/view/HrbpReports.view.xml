@@ -1,0 +1,592 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.bosch.hr.swift_trv.controller.HrbpReports"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:viz.data="sap.viz.ui5.data" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:layout="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:comm="sap.suite.ui.commons">
+	<SplitContainer id="SplitContDemo" initialDetail="detail" initialMaster="master">
+		<masterPages>
+			<Page id="master" title="Reports" backgroundDesign="List" class="sapUiStdPage" showNavButton="true" navButtonPress=".navButtonPress">
+				<List itemPress=".onListItemPress">
+					<StandardListItem title="{i18n>TravelTrends}" type="Navigation" custom:to="detail"/>
+					<StandardListItem title="{i18n>Ticketing}" type="Navigation" custom:to="detailTicketing"/>
+					<StandardListItem title="{i18n>Cargo}" type="Navigation" custom:to="detailCargo"/>
+				</List>
+			</Page>
+		</masterPages>
+		<detailPages>
+			<Page id="detail" title="{i18n>TravelTrends}" backgroundDesign="Solid" showNavButton="false" navButtonPress=".onPressDetailBack"
+				class="sapUiSizeCompact">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button icon="sap-icon://menu2" press="onPressDetailBack"></Button>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="{i18n>TravelTrends}"></Title>
+						</contentMiddle>
+						<contentRight></contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<VBox class="topClass">
+						<!--######################################## UI Filters for Travel Trends #################################################-->
+						<!--#######################################################################################################################-->
+						<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+							singleContainerFullSize="false">
+							<f:content>
+								<core:Title/>
+								<Label text="{i18n>Year}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHerbpYear" placeholder="Year" items="{Year>/}" selectionChange="onYearChange">
+									<core:Item key="{Year>text}" text="{Year>text}"/>
+								</MultiComboBox>
+								<Label text="{i18n>Country}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHrbpCountry" placeholder="Country" selectionChange="onCountryChange"
+									items="{ path: 'country>/', sorter: { path: 'text' } }">
+									<core:Item key="{country>MOLGA}" text="{country>LTEXT}"/>
+								</MultiComboBox>
+								<Label text="{i18n>TravelType}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHrbpTravelType" placeholder="Type" selectionChange="onTrvTypeChange">
+									<core:Item key="DEPU" text="DEPU"/>
+									<core:Item key="BUSR" text="BUSR"/>
+									<core:Item key="INFO" text="INFO"/>
+									<core:Item key="SECO" text="SECO"/>
+								</MultiComboBox>
+								<Label id="idHrbpAsgTypeL" text="{i18n>Model}" labelFor="idRequesterStatus" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHrbpAsgType" placeholder="AssignMent Model" items="{Assignment>/}" selectionChange="onAssignMentChange" enabled="false">
+									<core:Item key="{Assignment>Key}" text="{Assignment>AsgType}"/>
+								</MultiComboBox>
+								<Label id="idHrbpDurationCheckL" text="{i18n>Duration}" labelFor="idRequesterStatus" design="Bold" class="sapUiSmallMarginRight"/>
+								<ComboBox placeholder="Select" id="idHrbpDurationCheck" selectionChange="onDurationCheck">
+									<core:Item key="0" text="Select"/>
+									<core:Item key="1" text="Upto 6 Months"/>
+									<core:Item key="2" text="More than 6 Months"/>
+								</ComboBox>
+								<core:Title/>
+								<Label text="{i18n>PEloc}" design="Bold" class="sapUiSmallMarginRight"/>
+								<SegmentedButton selectedKey="No" id="idHrbpPELoc" width="100%">
+									<!--width="16.5rem"-->
+									<items>
+										<SegmentedButtonItem text="NO" key="No" press="onPressPECountriesNo"/>
+										<SegmentedButtonItem text="Yes" key="Yes" press="onPressPECountriesYes"/>
+									</items>
+								</SegmentedButton>
+								<Label text="{i18n>Location}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHrbpLoc" placeholder="Location" items="{location>/}" selectionChange="onLocationChange" enabled="false">
+									<core:Item key="{location>BLAND}" text="{location>BLAND}"/><!--MOLGA--></MultiComboBox>
+								<Label text="{i18n>FamilyTravels}" design="Bold" class="sapUiSmallMarginRight"/>
+								<ComboBox placeholder="Select" id="idHrbpFamilySP" selectionChange="onFamilyChange" enabled="fasle">
+									<core:Item key="0" text="Select"/>
+									<core:Item key="1" text="Sponsored"/>
+									<core:Item key="2" text="Not Sponsored"/>
+								</ComboBox>
+								<Label id="idHrbpFamilyAccL" text="{i18n>Familyaccompanied}" design="Bold" class="sapUiSmallMarginRight"/>
+								<ComboBox placeholder="Select" id="idHrbpFamilyAcc" selectionChange="onFamilyAccChange" enabled="false">
+									<core:Item key="0" text="Select"/>
+									<core:Item key="1" text="Yes"/>
+									<core:Item key="2" text="No"/>
+								</ComboBox>
+								<Label id="idHrbpActiveCasesL" text="{i18n>Activecasesonly}" labelFor="idRequesterStatus" design="Bold" class="sapUiSmallMarginRight"/>
+								<CheckBox id="idHrbpActiveCases" select="onSelectActiveCases"></CheckBox>
+							</f:content>
+						</f:SimpleForm>
+						<Toolbar width="97%">
+							<ObjectNumber id="idHrbpFilterText" class="MarginLeftClass" state="Success" visible="false"/>
+							<core:HTML id="html1"/>
+							<ToolbarSpacer/>
+							<Button id="idButtonShowMore" text="{i18n>More}" width="100px" type="Emphasized" press="handleShowMore"/>
+							<Button id="idButtonShowLess" text="{i18n>Less}" width="100px" type="Emphasized" press="handleShowLess"/>
+							<Button id="idClearBtn" text="{i18n>Clear}" width="100px" type="Emphasized" press="handleClearSearchFilters"/>
+							<Button id="idSearchBtn" text="{i18n>Search}" width="100px" type="Accept" press="handleSearchButtonPress"/>
+						</Toolbar>
+					</VBox>
+					<VBox>
+						<comm:ChartContainer id="idChartContainer1" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false"
+							personalizationPress="attachPersonalizationPress" contentChange="onContentChange">
+							<comm:content>
+								<comm:ChartContainerContent title="{i18n>Viz}" icon="sap-icon://line-chart">
+									<comm:content>
+										<!--############################################### Column Chart ############################################-->
+										<!--#########################################################################################################-->
+										<viz:Popover id="idPopOver1"></viz:Popover>
+										<!-- selectData="selectData" -->
+										<viz:VizFrame id="idVizFrame1" uiConfig="{applicationSet:'fiori'}" vizType="column" vizProperties="{title:{text:'Column Chart'}}">
+											<viz:dataset>
+												<viz.data:FlattenedDataset data="{vizData>/chart}">
+													<viz.data:dimensions>
+														<viz.data:DimensionDefinition id="idDimDef1" name="Year" value="{vizData>Year}"/>
+													</viz.data:dimensions>
+													<viz.data:measures>
+														<viz.data:MeasureDefinition name="DEPU" value="{vizData>DEPU}"/>
+														<viz.data:MeasureDefinition name="INFO" value="{vizData>INFO}"/>
+														<viz.data:MeasureDefinition name="BUSR" value="{vizData>BUSR}"/>
+														<viz.data:MeasureDefinition name="SECO" value="{vizData>SECO}"/>
+														<viz.data:MeasureDefinition name="DEPUAvgDuration" value="{vizData>DEPUAvgDuration}"/>
+														<viz.data:MeasureDefinition name="BUSRAvgDuration" value="{vizData>BUSRAvgDuration}"/>
+														<viz.data:MeasureDefinition name="INFOAvgDuration" value="{vizData>INFOAvgDuration}"/>
+														<viz.data:MeasureDefinition name="HOMEAvgDuration" value="{vizData>HOMEAvgDuration}"/>
+													</viz.data:measures>
+												</viz.data:FlattenedDataset>
+											</viz:dataset>
+											<viz:feeds>
+												<viz.feeds:FeedItem id="valueAxisFeed1" uid="valueAxis" type="Measure" values="DEPU,INFO,BUSR,SECO"/>
+												<viz.feeds:FeedItem id="feedCategoryAxis" uid="categoryAxis" type="Dimension" values="Year"/>
+											</viz:feeds>
+										</viz:VizFrame>
+									</comm:content>
+								</comm:ChartContainerContent>
+								<comm:ChartContainerContent title="{i18n>Table}" icon="sap-icon://table-view">
+									<comm:content>
+										<!--############################ Table View ################################-->
+										<!--########################################################################-->
+										<ScrollContainer horizontal="true" vertical="true" height="450px" focusable="false">
+											<Table inset="false" items="{vizData>/results}" class="parentClass" growing="true" growingThreshold="100" sticky="ColumnHeaders"  growingScrollToLoad="false">
+												<headerToolbar>
+													<OverflowToolbar>
+														<content>
+															<Title id="idHRBPTravelTrendsTable" text="{i18n>Records}" level="H2"/>
+															<ToolbarSpacer/>
+														</content>
+													</OverflowToolbar>
+												</headerToolbar>
+												<columns>
+													<Column hAlign="Left" width="7em">
+														<Text text="{i18n>DeputationRequestNo}"/>
+													</Column>
+													<Column hAlign="Left" width="8em">
+														<Text text="{i18n>TravelrequestNo}"/>
+													</Column>
+													<Column hAlign="Left" width="7em">
+														<Text text="{i18n>EmployeeNo}"/>
+													</Column>
+													<Column hAlign="Left" width="9em">
+														<Text text="{i18n>EmployeeName}"/>
+													</Column>
+													<Column hAlign="Left" width="5.5em">
+														<Text text="{i18n>Traveltype}"/>
+													</Column>
+													<Column hAlign="Left" width="6em">
+														<Text text="{i18n>FromLoc}"/>
+													</Column>
+													<Column hAlign="Left" width="5em">
+														<Text text="{i18n>ToCnty}"/>
+													</Column>
+													<Column hAlign="Left" width="6em">
+														<Text text="{i18n>ToLoc}"/>
+													</Column>
+													<Column hAlign="Left" width="6em">
+														<Text text="{i18n>StartDate}"/>
+													</Column>
+													<Column hAlign="Left" width="6em">
+														<Text text="{i18n>EndDate}"/>
+													</Column>
+													<Column hAlign="Left" width="5em">
+														<Text text="{i18n>TRVDuration}"/>
+													</Column>
+													<Column hAlign="Left" width="15.5em">
+														<Text text="{i18n>Model}"/>
+													</Column>
+													<Column hAlign="Left" width="5.5em">
+														<Text text="{i18n>Level}"/>
+													</Column>
+													<Column hAlign="Left" width="7em">
+														<Text text="{i18n>Conversion}"/>
+													</Column>
+													<Column hAlign="Left" width="7em">
+														<Text text="{i18n>Familyaccompanied}"/>
+													</Column>
+													<Column hAlign="Left" width="7em">
+														<Text text="{i18n>Familysponsorship}"/>
+													</Column>
+													<Column hAlign="Left" width="6em">
+														<Text text="{i18n>Section}"/>
+													</Column>
+													<Column hAlign="Left" width="6em">
+														<Text text="{i18n>BU}"/>
+													</Column>
+													<Column hAlign="Left" width="6.5em">
+														<Text text="{i18n>Department}"/>
+													</Column>
+													<Column hAlign="Left" width="6.5em">
+														<Text text="{i18n>Group}"/>
+													</Column>
+												</columns>
+												<items>
+													<ColumnListItem>
+														<cells>
+															<Text text="{vizData>DepReq}"/>
+															<Text text="{vizData>TrvReq}"/>
+															<Text text="{vizData>EmpNo}"/>
+															<Text text="{parts: [ {path: 'vizData>EmpName'} ], formatter: '.formatter.NameFormat' }"/>
+															<Text text="{vizData>TrvKey}"/>
+															<Text text="{vizData>FromLoc}"/>
+															<Text text="{ parts: [ {path: 'vizData>Country'} ], formatter: '.formatter.formatKeyCountry' }"/>
+															<Text text="{vizData>ToLoc}"/>
+															<Text text="{parts: [ {path: 'vizData>Begda'} ], formatter: '.formatter.onDateFormat' }"/>
+															<Text text="{parts: [ {path: 'vizData>Endda'} ], formatter: '.formatter.onDateFormat' }"/>
+															<Text text="{vizData>Ndays}"/>
+															<Text text="{parts: [ {path: 'vizData>AsgType'} ], formatter: '.formatter.ModelNameFormat' }"/>
+															<Text text="{vizData>Level}"/>
+															<Text text="{parts: [ {path: 'vizData>Conversion'} ], formatter: '.formatter.onConversion' }"/>
+															<Text text="{vizData>FamilyAccomp}"/>
+															<Text text="{vizData>Family}"/>
+															<Text text="{vizData>Section}"/>
+															<Text text="{vizData>Buint}"/>
+															<Text text="{vizData>Dept}"/>
+															<Text text="{vizData>Group}"/>
+														</cells>
+													</ColumnListItem>
+												</items>
+											</Table>
+										</ScrollContainer>
+									</comm:content>
+								</comm:ChartContainerContent>
+							</comm:content>
+						</comm:ChartContainer>
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button id="idDownloadVizFrame1" text="Download" type="Accept" press="ExportCSVPDF" visible="false"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+			<Page id="detailTicketing" title="{i18n>Ticketing}" backgroundDesign="Solid" showNavButton="false" navButtonPress=".onPressDetailBack"
+				class="sapUiSizeCompact">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button icon="sap-icon://menu2" press="onPressDetailBack"></Button>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="{i18n>Ticketing}"></Title>
+						</contentMiddle>
+						<contentRight></contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<!--############################################ UI Filters Ticketing Reports ##################################################### -->
+					<!--################################################################################################################################-->
+					<VBox class="topClass">
+						<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+							singleContainerFullSize="false">
+							<f:content>
+								<core:Title/>
+								<Label text="{i18n>Country}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHrbpTicketCountry" placeholder="Country" selectionChange="onCountryTicketChange"
+									items="{ path: 'country>/', sorter: { path: 'text' } }">
+									<core:Item key="{country>MOLGA}" text="{country>LTEXT}"/>
+								</MultiComboBox>
+								<Label text="{i18n>Type}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHerbpTicketType" placeholder="Type" selectionChange="onTypeChange">
+									<core:Item key="DOME" text="DOME"/>
+									<core:Item key="INTL" text="INTL"/>
+								</MultiComboBox>
+								<core:Title/>
+								<Label text="{i18n>Year}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHerbpTicketYear" placeholder="Year" items="{Year>/}" selectionChange="onTicketYearChange">
+									<core:Item key="{Year>text}" text="{Year>text}"/>
+								</MultiComboBox>
+							</f:content>
+						</f:SimpleForm>
+						<Toolbar class="toolbarClass" width="97%">
+							<ObjectNumber id="idHrbpCargoFilterText" class="MarginLeftClass" state="Success"/>
+							<core:HTML id="html2"/>
+							<ToolbarSpacer/>
+							<Button id="idTcktClearBtn" text="{i18n>Clear}" width="100px" type="Emphasized" press="handleClearSearchFiltersTicket"/>
+							<Button id="idTcktSearchBtn" text="{i18n>Search}" width="100px" type="Accept" press="handleSearchButtonPress"/>
+						</Toolbar>
+					</VBox>
+					<VBox>
+						<comm:ChartContainer id="idChartContainer2" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false"
+							personalizationPress="attachPersonalizationPress" contentChange="attachContentChange">
+							<comm:content>
+								<comm:ChartContainerContent title="{i18n>Viz}" icon="sap-icon://line-chart">
+									<comm:content>
+										<!--####################################### Stacked Column Chart ###############################################-->
+										<!--####################################################################################################-->
+										<viz:Popover id="idPopOver2"></viz:Popover>
+										<!--selectData="selectData"-->
+										<viz:VizFrame id="idVizFrame2" uiConfig="{applicationSet:'fiori'}" vizType="stacked_combination"
+											vizProperties="{title:{text:'Stacked column Chart'}}">
+											<viz:dataset>
+												<viz.data:FlattenedDataset data="{vizDataT>/chart}">
+													<viz.data:dimensions>
+														<viz.data:DimensionDefinition name="Year" value="{data>Year}"/>
+													</viz.data:dimensions>
+													<viz.data:measures>
+														<viz.data:MeasureDefinition name="DEPUTicketCost" value="{vizDataT>DEPUTicketCost}"/>
+														<viz.data:MeasureDefinition name="INFOTicketCost" value="{vizDataT>INFOTicketCost}"/>
+														<viz.data:MeasureDefinition name="BUSRTicketCost" value="{vizDataT>BUSRTicketCost}"/>
+														<viz.data:MeasureDefinition name="SECOTicketCost" value="{vizDataT>SECOTicketCost}"/>
+														<viz.data:MeasureDefinition name="DEPUAvgTicketCost" value="{vizDataT>DEPUAvgTicketCost}"/>
+														<viz.data:MeasureDefinition name="BUSRAvgTicketCost" value="{vizDataT>BUSRAvgTicketCost}"/>
+														<viz.data:MeasureDefinition name="INFOAvgTicketCost" value="{vizDataT>INFOAvgTicketCost}"/>
+														<viz.data:MeasureDefinition name="SECOAvgTicketCost" value="{vizDataT>SECOAvgTicketCost}"/>
+													</viz.data:measures>
+												</viz.data:FlattenedDataset>
+											</viz:dataset>
+											<viz:feeds>
+												<viz.feeds:FeedItem id="valueAxisFeed2" uid="valueAxis" type="Measure" values="DEPUTicketCost,INFOTicketCost,BUSRTicketCost,SECOTicketCost"/>
+												<viz.feeds:FeedItem id="feedCategoryAxis2" uid="categoryAxis" type="Dimension" values="Year"/>
+											</viz:feeds>
+										</viz:VizFrame>
+									</comm:content>
+								</comm:ChartContainerContent>
+								<comm:ChartContainerContent title="{i18n>Table}" icon="sap-icon://table-view">
+									<comm:content>
+										<!--######################## Table View for Ticketing Report ##########################-->
+										<!--###################################################################################-->
+										<ScrollContainer horizontal="true" vertical="true" height="450px" focusable="false">
+										<Table inset="false" items="{vizDataT>/results}" growing="true" sticky="ColumnHeaders"  growingThreshold="100" growingScrollToLoad="false">
+											<headerToolbar>
+												<OverflowToolbar>
+													<content>
+														<Title id="idHRBPTicketingTable" text="{i18n>Records}" level="H2"/>
+														<ToolbarSpacer/>
+														<!--<Button text="Export" press="onPressExportCSV"></Button>-->
+													</content>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column width="6rem">
+													<Text text="{i18n>DeputationRequestNo}"/>
+												</Column>
+												<Column width="6rem">
+													<Text text="{i18n>TravelrequestNo}"/>
+												</Column>
+												<Column hAlign="End" width="7em">
+														<Text text="{i18n>EmployeeNo}"/>
+													</Column>
+												<Column width="4rem">
+													<Text text="{i18n>Traveltype}"/>
+												</Column>
+												<Column width="5rem">
+													<Text text="{i18n>ToCnty}"/>
+												</Column>
+												<Column width="5.5rem">
+													<Text text="{i18n>ToLoc}"/>
+												</Column>
+												<Column width="5.5rem">
+													<Text text="{i18n>StartDate}"/>
+												</Column>
+												<Column width="5.5rem">
+													<Text text="{i18n>EndDate}"/>
+												</Column>
+												<Column width="4rem">
+													<Text text="{i18n>TRVDuration}"/>
+												</Column>
+												<Column hAlign="Center" width="5em">
+													<Text text="{i18n>Model}"/>
+												</Column>
+												<Column hAlign="Center" width="5em">
+													<Text text="{i18n>TicketCost}"/>
+												</Column>
+												<Column hAlign="Center" width="5em">
+													<Text text="{i18n>TravelClass}"/>
+												</Column>
+												<Column hAlign="Center" width="5em">
+													<Text text="{i18n>Airline}"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Text text="{vizDataT>DepReq}"/>
+														<Text text="{vizDataT>TrvReq}"/>
+														<Text text="{vizDataT>EmpNo}"/>
+														<Text text="{vizDataT>TrvKey}"/>
+														<Text text="{ parts: [ {path: 'vizDataT>Country'} ], formatter: '.formatter.formatKeyCountry' }"/>
+														<Text text="{vizDataT>ToLoc}"/>
+														<Text text="{parts: [ {path: 'vizDataT>Begda'} ], formatter: '.formatter.onDateFormat' }"/>
+														<Text text="{parts: [ {path: 'vizDataT>Endda'} ], formatter: '.formatter.onDateFormat' }"/>
+														<Text text="{vizDataT>Ndays}"/>
+														<Text text="{vizDataT>AsgType}"/>
+														<Text text="{parts: [ {path: 'vizDataT>TicketAmount'} ], formatter: '.formatter.onTicketAmount' }"/>
+														<Text text="{vizDataT>TicketType}"/>
+														<Text text="{vizDataT>AirLines}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+										</ScrollContainer>
+									</comm:content>
+								</comm:ChartContainerContent>
+							</comm:content>
+						</comm:ChartContainer>
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button id="idDownloadVizFrame2" text="Download" type="Accept" press="ExportCSVPDF" visible="false"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+			<Page id="detailCargo" title="{i18n>Cargo}" backgroundDesign="Solid" showNavButton="false" navButtonPress=".onPressDetailBack"
+				class="sapUiSizeCompact">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button icon="sap-icon://menu2" press="onPressDetailBack"></Button>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="{i18n>Cargo}"></Title>
+						</contentMiddle>
+						<contentRight></contentRight>
+					</Bar>
+				</customHeader>
+				<content>
+					<!--############################################ UI Filters Cargo Reports ##################################################### -->
+					<!--################################################################################################################################-->
+					<VBox class="topClass">
+						<f:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+							singleContainerFullSize="false">
+							<f:content>
+								<core:Title/>
+								<Label text="{i18n>Country}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHrbpCargoCountry" placeholder="Country" selectionChange="onCountryCargoChange"
+									items="{ path: 'country>/', sorter: { path: 'text' } }">
+									<core:Item key="{country>MOLGA}" text="{country>LTEXT}"/>
+								</MultiComboBox>
+								<Label text="{i18n>Vendor}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox placeholder="Select" id="idHrbpVendor">
+									<core:Item key="AAL" text="AAL"/>
+									<core:Item key="DHL" text="DHL"/>
+								</MultiComboBox>
+								<core:Title/>
+								<Label text="{i18n>Year}" design="Bold" class="sapUiSmallMarginRight"/>
+								<MultiComboBox id="idHerbpCargoYear" placeholder="Year" items="{Year>/}" selectionChange="onCargoYearChange">
+									<core:Item key="{Year>text}" text="{Year>text}"/>
+								</MultiComboBox>
+							</f:content>
+						</f:SimpleForm>
+						<Toolbar class="toolbarClass" width="97%">
+							<ObjectNumber id="idHrbpTicketingFilterText" class="MarginLeftClass" state="Success"/>
+							<core:HTML id="html3"/>
+							<ToolbarSpacer/>
+							<Button id="idCargoClearBtn" text="{i18n>Clear}" width="100px" type="Emphasized" press="handleClearCargoSearchFilters"/>
+							<Button id="idCargoSearchBtn" text="{i18n>Search}" width="100px" type="Accept" press="handleSearchButtonPress"/>
+						</Toolbar>
+					</VBox>
+					<VBox>
+						<comm:ChartContainer id="idChartContainer3" showFullScreen="true" showPersonalization="false" autoAdjustHeight="false"
+							personalizationPress="attachPersonalizationPress" contentChange="attachContentChange">
+							<comm:content>
+								<comm:ChartContainerContent title="{i18n>Viz}" icon="sap-icon://line-chart">
+									<comm:content>
+										<!--####################################### Column Chart ###############################################-->
+										<!--####################################################################################################-->
+										<viz:Popover id="idPopOver3"></viz:Popover>
+										<!--selectData="selectData"-->
+										<viz:VizFrame id="idVizFrame3" uiConfig="{applicationSet:'fiori'}" vizType="stacked_column" vizProperties="{title:{text:'Column Chart'}}">
+											<viz:dataset>
+												<viz.data:FlattenedDataset data="{vizDataC>/chart}">
+													<viz.data:dimensions>
+														<viz.data:DimensionDefinition name="Year" value="{vizDataC>Year}"/>
+													</viz.data:dimensions>
+													<viz.data:measures>
+														<viz.data:MeasureDefinition name="AAL" value="{vizDataC>AAL}"/>
+														<viz.data:MeasureDefinition name="DHL" value="{vizDataC>DHL}"/>
+													</viz.data:measures>
+												</viz.data:FlattenedDataset>
+											</viz:dataset>
+											<viz:feeds>
+												<viz.feeds:FeedItem id="valueAxisFeed3" uid="valueAxis" type="Measure" values="AAL,DHL"/>
+												<viz.feeds:FeedItem id="feedCategoryAxis3" uid="categoryAxis" type="Dimension" values="Year"/>
+											</viz:feeds>
+										</viz:VizFrame>
+									</comm:content>
+								</comm:ChartContainerContent>
+								<comm:ChartContainerContent title="{i18n>Table}" icon="sap-icon://table-view">
+									<comm:content>
+										<!--######################## Table View for Ticketing Report ##########################-->
+										<!--###################################################################################-->
+										<ScrollContainer horizontal="true" vertical="true" height="450px" focusable="false">
+										<Table inset="false" items="{vizDataC>/results}" sticky="ColumnHeaders"  growing="true" growingThreshold="100" growingScrollToLoad="false">
+											<headerToolbar>
+												<OverflowToolbar>
+													<content>
+														<Title id="idHRBPCargoTable" text="{i18n>Records}" level="H2"/>
+														<ToolbarSpacer/>
+														<!--<Button text="Export" press="onPressExportCSV"></Button>-->
+													</content>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column width="6rem">
+													<Text text="{i18n>DeputationRequestNo}"/>
+												</Column>
+												<Column width="6rem">
+													<Text text="{i18n>TravelrequestNo}"/>
+												</Column>
+												<Column hAlign="End" width="7em">
+														<Text text="{i18n>EmployeeNo}"/>
+													</Column>
+												<Column width="4rem">
+													<Text text="{i18n>Traveltype}"/>
+												</Column>
+												<Column width="5rem">
+													<Text text="{i18n>ToCnty}"/>
+												</Column>
+												<Column width="5.5rem">
+													<Text text="{i18n>ToLoc}"/>
+												</Column>
+												<Column width="5.5rem">
+													<Text text="{i18n>StartDate}"/>
+												</Column>
+												<Column width="5.5rem">
+													<Text text="{i18n>EndDate}"/>
+												</Column>
+												<Column width="4rem">
+													<Text text="{i18n>TRVDuration}"/>
+												</Column>
+												<Column hAlign="Center" width="5em">
+													<Text text="{i18n>CargoType}"/>
+												</Column>
+												<Column hAlign="Center" width="5em">
+													<Text text="{i18n>Vendor}"/>
+												</Column>
+												<Column hAlign="Center" width="7em">
+													<Text text="{i18n>MovementDate}"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem>
+													<cells>
+														<Text text="{vizDataC>DepReq}"/>
+														<Text text="{vizDataC>TrvReq}"/>
+														<Text text="{vizDataC>EmpNo}"/>
+														<Text text="{vizDataC>TrvKey}"/>
+														<Text text="{ parts: [ {path: 'vizDataC>Country'} ], formatter: '.formatter.formatKeyCountry' }"/>
+														<Text text="{vizDataC>ToLoc}"/>
+														<Text text="{parts: [ {path: 'vizDataC>Begda'} ], formatter: '.formatter.onDateFormat' }"/>
+														<Text text="{parts: [ {path: 'vizDataC>Endda'} ], formatter: '.formatter.onDateFormat' }"/>
+														<Text text="{vizDataC>Ndays}"/>
+														<Text text="{vizDataC>AsgType}"/>
+														<Text text="{vizDataC>CargoType}"/>
+														<Text text="{vizDataC>Vendor}"/>
+														<Text text="{vizDataC>CargoMvmntDate}"/>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+										</ScrollContainer>
+									</comm:content>
+								</comm:ChartContainerContent>
+							</comm:content>
+						</comm:ChartContainer>
+					</VBox>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button id="idDownloadVizFrame3" text="Download" type="Accept" press="ExportCSVPDF" visible="false"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</detailPages>
+	</SplitContainer>
+</mvc:View>

@@ -1,0 +1,230 @@
+<mvc:View
+    controllerName="com.mhirj.dms.zmhirjdmscp.controller.DetailDetail"
+	xmlns:f="sap.f"
+	xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+    class="sapUiSizeCompact">
+	<f:DynamicPage toggleHeaderOnTitleClick="false">
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<Title text="{i18n>detailedScreenHeader}" backgroundDesign="Transparent"/>
+					</FlexBox>
+				</f:heading>
+                <f:navigationActions>
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/endColumn/fullScreen} !== null }"/>
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/endColumn/exitFullScreen} !== null }"/>
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose"  tooltip="Close end column" visible="{= ${/actionButtonsInfo/endColumn/closeColumn} !== null }"/>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://home" press="handleBackToMainScreen"  tooltip="Home Screen" visible="{LocalDataModel>/DMS_Model/displayScreen}"/>
+				</f:navigationActions>
+			</f:DynamicPageTitle>
+		</f:title>
+         <f:content>
+           <FlexBox direction="Column" class="sapUiSmallMarginBegin sapUiSmallMarginTop">
+						<!-- <Link text="{i18n>backToMainScreen}" press="handleBackToMainScreen" visible="{= ${LocalDataModel>/DMS_Model/displayScreen} === 'DISPLAY_DEFAULT_SCREEN' ? true : false }" /> -->
+						<FlexBox direction="Column" class="sapUiSmallMarginTop sapUiSmallMarginBegin">
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenReleaseDate}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/ReleaseDate}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/ReleaseDate}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenDocType}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocType}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocType}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenDocNumber}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocNumber}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/RevisionNumber}">
+								<Label text="{i18n>detailedScreenRevision}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/RevisionNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/RevisionNumber}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenTitleOfTheDocSet}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocSetTitle}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocSetTitle}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenDesc}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Description}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Description}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<!-- <Label text="{i18n>detailedScreenDesc}" design="Bold" /> -->
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Message}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Message}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenAttachments}" design="Bold" />
+								<Table items="{LocalDataModel>/DMS_Model/DocSetDetails/0/fileinfo}" >
+									<columns>
+										<Column width="10%">
+											<Label text="" />
+										</Column>
+										<Column width="70%">
+											<Label text="" />
+										</Column>
+										<Column width="10%">
+											<Label text="" />
+										</Column>
+										<Column width="10%">
+											<Label text="" />
+										</Column>
+									</columns>
+									<ColumnListItem>
+										<core:Icon src="sap-icon://activity-2" color="#031E48" />
+										<Label text="{LocalDataModel>FileName}" tooltip="{LocalDataModel>FileName}"/>
+										<Label text="{LocalDataModel>FileSize}" tooltip="{LocalDataModel>FileSize}"/>
+										<core:Icon src="sap-icon://download" color="#031E48" press="downloadAttachment" />
+									</ColumnListItem>
+								</Table>
+							</FlexBox>
+
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom">
+								<Label text="{i18n>detailedScreenAircraftModel}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/AircraftModel}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/AircraftModel}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/AircraftMSN}">
+								<Label text="{i18n>detailedScreenAircraftMSN}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/AircraftMSN}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/AircraftMSN}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/MainAta}">
+								<Label text="{i18n>detailedScreenMainAta}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/MainAta}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/MainAta}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/SubAta}">
+								<Label text="{i18n>detailedScreenSubAta}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/SubAta}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/SubAta}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/PartNumber}">
+								<Label text="{i18n>detailedScreenPNumber}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartNumber}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/PartSerialNumber}">
+								<Label text="{i18n>detailedScreenPsNumber}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartSerialNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartSerialNumber}"/>
+							</FlexBox>
+							<FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Supplier}">
+								<Label text="{i18n>detailedScreensupplier}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Supplier}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Supplier}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/CageCode}">
+								<Label text="{i18n>detailedScreenCageCode}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/CageCode}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/CageCode}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/MIPChangeRequest}">
+								<Label text="{i18n>detailedScreenMIPChangeRequest}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/MIPChangeRequest}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/MIPChangeRequest}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/PartTypeLevel1}">
+								<Label text="{i18n>detailedScreenPartTypeLevel1}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartTypeLevel1}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartTypeLevel1}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/PartTypeLevel2}">
+								<Label text="{i18n>detailedScreenPartTypeLevel2}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartTypeLevel2}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartTypeLevel2}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/PartTypeLevel3}">
+								<Label text="{i18n>detailedScreenPartTypeLevel3}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartTypeLevel3}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/PartTypeLevel3}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/InternalComments}">
+								<Label text="{i18n>detailedScreenInternalComments}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/InternalComments}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/InternalComments}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/DocStatus}">
+								<Label text="{i18n>detailedScreenDocStatus}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocStatus}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/DocStatus}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/CAR}">
+								<Label text="{i18n>detailedScreenCAR}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/CAR}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/CAR}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/WorkingGroup}"> 
+								<Label text="{i18n>detailedScreenWorkingGroup}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/WorkingGroup}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/WorkingGroup}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/ServiceBulletinNo}">
+								<Label text="{i18n>detailedScreenServiceBulletinNo}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/ServiceBulletinNo}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/ServiceBulletinNo}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/VenSerBulletin}">
+								<Label text="{i18n>detailedScreenVenSerBulletin}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/VenSerBulletin}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/VenSerBulletin}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Consumable}">
+								<Label text="{i18n>detailedScreenConsumable}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Consumable}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Consumable}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/LateReturn}">
+								<Label text="{i18n>detailedScreenLateReturn}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/LateReturn}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/LateReturn}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/ToolReservation}">
+								<Label text="{i18n>detailedScreenToolReservation}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/ToolReservation}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/ToolReservation}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/RentalPeriod}">
+								<Label text="{i18n>detailedScreenRentalPeriod}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/RentalPeriod}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/RentalPeriod}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/RentalRates}">
+								<Label text="{i18n>detailedScreenRentalRates}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/RentalRates}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/RentalRates}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Currency}">
+								<Label text="{i18n>detailedScreenCurrency}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Currency}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Currency}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/AvailableSale}">
+								<Label text="{i18n>detailedScreenAvailableSale}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/AvailableSale}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/AvailableSale}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Publication}">
+								<Label text="{i18n>detailedScreenPublication}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Publication}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Publication}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/ReferenceNumber}">
+								<Label text="{i18n>detailedScreenReferenceNumber}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/ReferenceNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/ReferenceNumber}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/TpubsDocStatus}">
+								<Label text="{i18n>detailedScreenTpubsDocStatus}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/TpubsDocStatus}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/TpubsDocStatus}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/TRevisionNumber}">
+								<Label text="{i18n>detailedScreenTRevisionNumber}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/TRevisionNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/TRevisionNumber}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/RepTRevisionNumber}">
+								<Label text="{i18n>detailedScreenRepTRevisionNumber}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/RepTRevisionNumber}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/RepTRevisionNumber}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Criticality}">
+								<Label text="{i18n>detailedScreenCriticality}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Criticality}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Criticality}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Incorporated}">
+								<Label text="{i18n>detailedScreenIncorporated}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Incorporated}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Incorporated}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/UnitofWork}">
+								<Label text="{i18n>detailedScreenUnitofWork}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/UnitofWork}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/UnitofWork}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Pageblock}">
+								<Label text="{i18n>detailedScreenPageblock}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Pageblock}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Pageblock}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/Compliance}"> 
+								<Label text="{i18n>detailedScreenCompliance}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/Compliance}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/Compliance}"/>
+							</FlexBox>
+                            <FlexBox direction="Column" class="sapUiSmallMarginBottom" visible="{LocalDataModel>/DMS_Model/DetailVisibleFields/TransmittalLetterNo}">
+								<Label text="{i18n>detailedScreenTransmittalLetterNo}" design="Bold" />
+								<Label text="{LocalDataModel>/DMS_Model/DocSetDetails/0/TransmittalLetterNo}" tooltip="{LocalDataModel>/DMS_Model/DocSetDetails/0/TransmittalLetterNo}"/>
+							</FlexBox>
+						</FlexBox>
+					</FlexBox>
+        </f:content>
+	</f:DynamicPage>
+</mvc:View>

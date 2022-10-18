@@ -1,0 +1,35 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog contentWidth="640px" horizontalScrolling="false" class="sapUiSizeCompact" >
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Label text="{i18n>notificationHeader}" design="Bold" />
+				</contentLeft>
+			</Bar>
+		</customHeader>
+		<content>
+			<FlexBox height="100%" direction="Column" class="sapUiSmallMarginTopBottom">
+				<FlexBox direction="Column" height="100%" class="sapUiSmallMarginBottom sapUiSmallMarginBeginEnd">
+					<Label text="{i18n>notificationHeaderText}" wrapping="true" />
+                    <Label text="{i18n>notificationHeaderTexts}" wrapping="true" class="sapUiSmallMarginBottom"/>
+                    <Label text="{i18n>notificationHeaderText1}" wrapping="true" />
+                    <Label text="{i18n>notificationHeaderTexts1}" wrapping="true" />
+				</FlexBox>
+				<Tree items="{path: 'LocalDataModel>/DMS_Model/TreeModel'}" >
+					<CustomTreeItem>
+						<FlexBox width="100%" class="customTreeItemFlexBox">
+							<Label text="{LocalDataModel>name}" tooltip="{LocalDataModel>name}" wrapping="true" />
+							<Switch state="{parts:[{path:'LocalDataModel>subscribedformail'}], formatter:'.formatter.getSwitchState'}" customTextOn=" " customTextOff=" " visible="{= ${LocalDataModel>parent} === null ? false : true }" change="switchChange"/>
+						</FlexBox>
+					</CustomTreeItem>
+				</Tree>
+			</FlexBox>
+		</content>
+		<buttons>
+			<Button text="{i18n>notificationSave}" press="notificationSave" />
+			<Button text="{i18n>notificationCancel}" press="notificationCancel" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>    

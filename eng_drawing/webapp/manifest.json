@@ -1,0 +1,173 @@
+{
+    "_version": "1.42.0",
+    "sap.app": {
+        "id": "com.mhirj.engdrawing",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.7.5",
+            "toolsId": "9b7850fa-d1fb-4292-af70-5354201fa968"
+        },
+        "dataSources": {
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-mhirj-engdrawing-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "EngDrawing",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.102.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.mhirj.engdrawing.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {}
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.f.routing.Router",
+                "type": "View",
+				"viewType": "XML",
+				"viewPath": "com.mhirj.engdrawing.view",
+                "async": true,
+				"controlId": "flexibleColumnLayout",
+				"transition": "slide"
+            },
+            "routes": [
+                {
+					"pattern": "",
+					"name": "Terms",
+					"target": [
+						"Terms"
+					],
+					"layout": "OneColumn"
+				},
+                {
+                    "name": "Master",
+                    "pattern": "Master:layout:",
+                    "target": [
+                        "Master",
+                        "Detail"
+                    ],
+                    "layout": "OneColumn"
+                },
+                {
+					"pattern":"Detail/{docNo}/{docTitle}/{layout}",
+					"name": "Detail",
+					"target": [
+						"Master",
+						"Detail"
+					],
+                    "layout": "TwoColumnsMidExpanded"
+				},
+                {
+					"pattern":"DetailDetail/{attachmentNo}/{layout}",
+					"name": "DetailDetail",
+					"target": [
+						"Master",
+						"Detail",
+                        "DetailDetail"
+					],
+                    "layout": "ThreeColumnsMidExpanded"
+				}
+            ],
+            "targets": {
+                "Terms": {
+					"viewName": "Terms",
+                    "viewId": "terms",
+					"controlAggregation": "beginColumnPages"
+				},
+                "Master": {
+					"viewName": "Master",
+                    "viewId": "master",
+					"controlAggregation": "beginColumnPages"
+				},
+                "Detail": {
+					"viewName": "Detail",
+                    "viewId": "detail",
+					"controlAggregation": "midColumnPages"
+				},
+                "DetailDetail": {
+					"viewName": "DetailDetail",
+                    "viewId": "detaildetail",
+					"controlAggregation": "endColumnPages"
+				}
+            }
+        },
+        "rootView": {
+            "viewName": "com.mhirj.engdrawing.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "fcl"
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "com-mhirj-engdrawing"
+    }
+}

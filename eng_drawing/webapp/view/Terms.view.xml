@@ -1,0 +1,24 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.mhirj.engdrawing.controller.Terms" xmlns:html="http://www.w3.org/1999/xhtml">
+    <App>
+        <pages>
+            <Page title="{i18n>title}" showHeader="false" class="sapUiSizeCompact">
+                <content>
+                    <FlexBox direction="Column" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom">
+                        <FlexBox class="sapUiSmallMarginBeginEnd">
+                            <!-- <FormattedText htmlText="{LocalDataModel>/HTMLContent}"/> -->
+                            <core:HTML content="{LocalDataModel>/HTMLContent}" />
+                        </FlexBox>
+                        <CheckBox text="{i18n>policyCheck}" select="onSelect" />
+                    </FlexBox>
+                </content>
+                <footer>
+                    <OverflowToolbar>
+                        <ToolbarSpacer />
+                        <Button id="idAccept" text="{i18n>Accept}" type="Accept" press="onAccept" enabled="false" />
+                        <Button text="{i18n>Reject}" type="Reject" press="onReject" />
+                    </OverflowToolbar>
+                </footer>
+            </Page>
+        </pages>
+    </App>
+</mvc:View>

@@ -1,0 +1,111 @@
+
+.sapUxAPObjectPageSectionHeader{
+    height:0 !important;
+    line-height:0 !important;
+    padding:0 !important;
+}
+
+.sapUxAPObjectPageContainerNoBar>.sapUxAPObjectPageSection:first-child:not(.sapUxAPObjectPageSectionNoTitle){
+    margin-top:0 !important;
+}
+
+.treeTable .sapUiTableColHdrCnt{
+    display: none !important;
+}
+
+.dialogFlexBox > .sapMFlexItem:nth-child(1){
+    height:20% !important;
+}
+
+.dialogFlexBox > .sapMFlexItem:nth-child(2){
+    height:70% !important;
+    background-color:lightblue;
+}
+
+.dialogFlexBox > .sapMFlexItem:nth-child(3){
+    height:10% !important;
+    background-color:lightgoldenrodyellow;
+}
+
+.customTreeItemFlexBox > .sapMFlexItem:nth-child(1){
+    width:90% !important;
+}
+
+.customTreeItemFlexBox > .sapMFlexItem:nth-child(2){
+    width:10% !important;
+}
+
+.sapUxAPObjectPageHeaderContent .sapUxAPObjectPageHeaderContentItem{
+    line-height: inherit !important;
+}
+
+.semanticPage .sapMPageHeader{
+    display:none;
+}
+
+.masterPage > .sapMPageWithHeader.sapMPageWithSubHeader > section{
+    /* top:0 !important; */
+    top: 2.25rem !important;
+}
+
+.detailPage > .sapMPageWithHeader > section {
+    top:0 !important;
+}
+
+/* .masterPage > .sapMPage>section,
+.detailPage > .sapMPage>section{
+    position: initial;
+} */
+
+.tree.sapMTreeItemBaseChildren {
+    background-color: white;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.dynamicFlexBox > .sapMFlexItem:nth-child(1){
+    width:25% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox > .sapMFlexItem:nth-child(2){
+    width:25% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox > .sapMFlexItem:nth-child(3){
+    width:25% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox > .sapMFlexItem:nth-child(4){
+    width:25% !important;
+    padding-right:1% !important;
+}
+
+
+
+.dynamicFlexBox1 > .sapMFlexItem:nth-child(1){
+    width:20% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox1 > .sapMFlexItem:nth-child(2){
+    width:20% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox1 > .sapMFlexItem:nth-child(3){
+    width:20% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox1 > .sapMFlexItem:nth-child(4){
+    width:20% !important;
+    padding-right:1% !important;
+}
+
+.dynamicFlexBox1 > .sapMFlexItem:nth-child(5){
+    width:20% !important;
+    padding-right:1% !important;
+}

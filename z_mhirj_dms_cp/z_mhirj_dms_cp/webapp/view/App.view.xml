@@ -1,0 +1,14 @@
+<mvc:View
+    controllerName="com.mhirj.dms.zmhirjdmscp.controller.App"
+	xmlns="sap.f"
+    height="100%"
+	xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    class="sapUiSizeCompact"    
+>
+    <FlexibleColumnLayout
+		id="flexibleColumnLayout"
+		stateChange=".onStateChanged"
+		backgroundDesign="Solid"
+		layout="{/layout}"/>
+</mvc:View>

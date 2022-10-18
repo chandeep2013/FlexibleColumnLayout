@@ -1,0 +1,71 @@
+<mvc:View controllerName="com.mhirj.engdrawing.controller.Detail" xmlns:mvc="sap.ui.core.mvc" xmlns:uxap="sap.uxap" xmlns="sap.m" xmlns:f="sap.f" xmlns:core="sap.ui.core">
+    <uxap:ObjectPageLayout id="idEngDrawingObjPageLayout" headerContentPinnable="true">
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:heading>
+                    <Title text="{i18n>detailTitle}" />
+                </uxap:heading>
+                <uxap:navigationActions>
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+                    <OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+                </uxap:navigationActions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+        <!--uxap:headerContent>
+            <FlexBox direction="Column">
+                <Title text="{i18n>detailTitle}" />
+            </FlexBox>
+        </uxap:headerContent-->
+        <uxap:sections>
+            <uxap:ObjectPageSection>
+                <uxap:subSections>
+                    <!-- <uxap:ObjectPageSubSection title="Test Detail Page" showTitle="false"> -->
+                    <uxap:ObjectPageSubSection>
+                        <uxap:blocks>
+                            <FlexBox direction="Column">
+                                <Table id="idProductsTable" inset="false" items="{oModel>/documentCollection}">
+                                    <headerToolbar>
+                                        <OverflowToolbar>
+                                            <content>
+                                                <Title text="{i18n>documentTitle}" level="H2" />
+                                            </content>
+                                        </OverflowToolbar>
+                                    </headerToolbar>
+                                    <columns>
+                                        <Column width="12em">
+                                            <Text text="DocumentName" />
+                                        </Column>
+                                        <Column minScreenWidth="Tablet" demandPopin="true">
+                                            <Text text="DocumentTitle" />
+                                        </Column>
+                                        <Column minScreenWidth="Tablet" demandPopin="true">
+                                            <Text text="RevisionNumber" />
+                                        </Column>
+                                        <Column minScreenWidth="Tablet" demandPopin="true">
+                                            <Text text="DocVersion" />
+                                        </Column>
+                                        <Column demandPopin="true">
+                                            <Text text="CategoryName" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem vAlign="Middle" type="Navigation" press=".onListItemPress">
+                                            <cells>
+                                                <Text text="{oModel>DocumentName}" />
+                                                <Text text="{oModel>DocumentTitle}" />
+                                                <Text text="{oModel>RevisionNumber}" />
+                                                <Text text="{oModel>DocVersion}" />
+                                                <Text text="{oModel>CategoryName}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </FlexBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

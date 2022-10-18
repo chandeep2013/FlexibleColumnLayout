@@ -1,0 +1,22 @@
+/* Enter your custom styles here */
+.sapUiForm .sapUiFormTitle {
+    display: none;
+}    
+.sapUxAPObjectPageSectionHeader{
+    height:0 !important;
+    line-height:0 !important;
+    padding:0 !important;
+}
+
+.sapUxAPObjectPageContainerNoBar>.sapUxAPObjectPageSection:first-child:not(.sapUxAPObjectPageSectionNoTitle){
+    margin-top:0 !important;
+}
+
+.textAlign.sapMInputBase.sapMTextArea .sapMTextAreaInner{
+    text-align: justify;
+}
+
+.textAlign.sapMInputBase.sapMTextArea .sapMTextAreaInner, 
+.textAlign.sapMInputBase.sapMTextArea .sapMTextAreaMirror {
+    padding: 2% !important;
+}

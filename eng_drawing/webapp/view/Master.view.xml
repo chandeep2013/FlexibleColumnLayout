@@ -1,0 +1,51 @@
+<mvc:View controllerName="com.mhirj.engdrawing.controller.Master" xmlns="sap.m"
+	xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:semantic="sap.f.semantic" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form">
+    <f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="{i18n>title}" />
+                </f:heading>
+                <f:actions>
+                    <!--actions-->
+                </f:actions>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content>
+            <VBox class="sapUiSmallMargin">
+                <form:SimpleForm
+                    id="SimpleFormChange354"
+                    editable="true"
+                    layout="ResponsiveGridLayout"
+                    title="Address"
+                    labelSpanXL="3"
+                    labelSpanL="3"
+                    labelSpanM="3"
+                    labelSpanS="12"
+                    adjustLabelSpan="false"
+                    emptySpanXL="4"
+                    emptySpanL="4"
+                    emptySpanM="4"
+                    emptySpanS="0"
+                    columnsXL="1"
+                    columnsL="1"
+                    columnsM="1"
+                    singleContainerFullSize="false"
+                >
+                    <form:content>
+                        <Label text="{i18n>docNo}" required="true"/>
+                        <Input id="idDocNo" placeholder="{i18n>docNo}" />
+                        <Label text="{i18n>docTitle}" required="true"/>
+                        <Input id="idDocTitle" placeholder="{i18n>docTitle}" />
+                        <Label></Label>
+                        <Button text = "{i18n>search}" press="onSearch"/>
+                        <Button text = "{i18n>clear}" press="onClear"/>
+                    </form:content>
+                </form:SimpleForm>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
